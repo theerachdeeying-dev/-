@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Cafe POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                    <line x1="6" y1="1" x2="6" y2="4" />
+                    <line x1="10" y1="1" x2="10" y2="4" />
+                    <line x1="14" y1="1" x2="14" y2="4" />
+                </svg>
+            </div>
+            
+            <a href="menu-all.html" target="menu-frame" class="nav-item active" onclick="setActive(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                <span>ทั้งหมด</span>
+            </a>
+
+            <a href="menu-coffee.html" target="menu-frame" class="nav-item" onclick="setActive(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                <span>กาแฟ</span>
+            </a>
+            
+            <a href="menu-bakery.html" target="menu-frame" class="nav-item" onclick="setActive(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m2 22 5-5"/><path d="M9.5 15.5 19 6l-5-5-9.5 9.5Z"/><path d="m15.5 9.5 5 5"/></svg>
+                <span>เบเกอรี่</span>
+            </a>
+            
+            <a href="menu-dessert.html" target="menu-frame" class="nav-item" onclick="setActive(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-8a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v8"/><rect width="16" height="12" x="4" y="2" rx="2"/></svg>
+                <span>ของหวาน</span>
+            </a>
+
+            <a href="menu-others.html" target="menu-frame" class="nav-item" onclick="setActive(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 20A7 7 0 0 1 4 13V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a7 7 0 0 1-7 7Z"/><path d="M9 3v17"/><path d="M15 3v17"/></svg>
+                <span>อื่นๆ</span>
+            </a>
+
+            <div style="margin-top: auto; color: rgba(255,255,255,0.1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+        </nav>
+
+        <!-- Main Workspace -->
+        <div class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1 class="font-serif italic">Luxe Cafe</h1>
+                    <span>สถาปัตยกรรมแห่งรสชาติ</span>
+                </div>
+                <button class="toggle-cart-btn" onclick="toggleCart()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>เปิด/ปิด รายการ</span>
+                </button>
+            </header>
+            
+            <iframe name="menu-frame" id="menu-frame" src="menu-all.html"></iframe>
+        </div>
+
+        <!-- Order Panel -->
+        <aside id="order-panel" class="order-sidebar">
+            <div class="order-header">
+                <h2 class="font-serif italic">บันทึกรายการ</h2>
+                <span style="font-size: 9px; letter-spacing: 0.3em; color: rgba(255,255,255,0.3); text-transform: uppercase;">รายละเอียด</span>
+            </div>
+
+            <div id="cart-list" class="order-items custom-scrollbar">
+                <!-- Cart items will appear here -->
+            </div>
+
+            <div class="order-footer">
+                <div class="summary-line">
+                    <span>ยอดรวมเบื้องต้น</span>
+                    <span id="subtotal">0 บาท</span>
+                </div>
+                <div class="summary-line">
+                    <span>ภาษีและค่าบริการ</span>
+                    <span>0 บาท</span>
+                </div>
+                
+                <div class="grand-total">
+                    <div class="total-label">ราคาสุทธิ</div>
+                    <div class="total-amount font-serif">
+                        <span id="total">0</span><span> บาท</span>
+                    </div>
+                </div>
+
+                <button class="btn-proceed">ยืนยันรายการ</button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        function setActive(el) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function toggleCart() {
+            const panel = document.getElementById('order-panel');
+            panel.classList.toggle('collapsed');
+        }
+
+        // Cart Logic
+        function updateCartUI() {
+            const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartList = document.getElementById('cart-list');
+            const totalEl = document.getElementById('total');
+            const subtotalEl = document.getElementById('subtotal');
+            
+            cartList.innerHTML = '';
+            let total = 0;
+
+            if (cartItems.length === 0) {
+                cartList.innerHTML = `
+                    <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0.2;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        <p class="font-serif italic" style="margin-top: 15px;">ไม่มีรายการที่เลือก</p>
+                    </div>
+                `;
+            } else {
+                cartItems.forEach((item, index) => {
+                    total += item.price * item.quantity;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <div class="cart-item-img"><img src="${item.image}"></div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-header">
+                                <span class="cart-item-name font-serif">${item.name}</span>
+                                <span style="font-size: 10px; cursor: pointer;" onclick="removeItem(${index})">×</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <span style="font-size: 10px; color: rgba(255,255,255,0.4)">x${item.quantity}</span>
+                                <span class="cart-item-total">${item.price * item.quantity} บาท</span>
+                            </div>
+                        </div>
+                    `;
+                    cartList.appendChild(itemDiv);
+                });
+            }
+
+            totalEl.innerText = total;
+            subtotalEl.innerText = total + ' บาท';
+        }
+
+        window.removeItem = (index) => {
+            const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+            cartItems.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            updateCartUI();
+        };
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            updateCartUI();
+        }
+
+        function showOrderComplete() {
+            const overlay = document.getElementById('order-complete-overlay');
+            if (!overlay) return;
+            overlay.classList.add('visible');
+            setTimeout(() => {
+                overlay.classList.remove('visible');
+            }, 1700);
+        }
+
+        function handleConfirmOrder() {
+            const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cartItems.length === 0) return;
+            showOrderComplete();
+            clearCart();
+            const menuFrame = document.getElementById('menu-frame');
+            if (menuFrame) menuFrame.src = 'menu-all.html';
+        }
+
+        const proceedButton = document.querySelector('.btn-proceed');
+        if (proceedButton) proceedButton.addEventListener('click', handleConfirmOrder);
+
+        // Listen for additions from iframe
+        window.addEventListener('storage', updateCartUI);
+        window.addEventListener('message', (e) => {
+            if (e.data === 'cartUpdated') updateCartUI();
+        });
+
+        // Clear cart on start for clean session
+        localStorage.removeItem('cart');
+        updateCartUI();
+    </script>
+
+    <div id="order-complete-overlay" class="order-complete-overlay">
+        <div class="order-complete-card">
+            <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="white" stroke-width="2">
+                <path d="M20 6 9 17l-5-5" />
+            </svg>
+            <h2>สั่งซื้อเสร็จสิ้น</h2>
+            <p>เตรียมเริ่มคำสั่งซื้อใหม่ได้เลย</p>
+        </div>
+    </div>
+</body>
+</html>

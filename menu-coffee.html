@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background-color: transparent; overflow-y: auto; height: 100vh; }
+    </style>
+</head>
+<body class="custom-scrollbar">
+    <div class="product-grid">
+        <div class="product-card" onclick="addToCart('เอสเพรสโซ่', 50, '/public/images/artisan_coffee_1.png')">
+            <div class="product-img-wrapper">
+                <img src="/public/images/lux_coffee_hero.png">
+            </div>
+            <div class="product-info">
+                <div class="product-name font-serif italic">เอสเพรสโซ่ ช็อตเดียว</div>
+                <div class="product-price">50 บาท</div>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="addToCart('ลาเต้ อาร์ทิซาน', 65, '/public/images/artisan_coffee_1.png')">
+            <div class="product-img-wrapper">
+                <img src="/public/images/artisan_coffee_1.png">
+            </div>
+            <div class="product-info">
+                <div class="product-name font-serif italic">ลาเต้ อาร์ทิซาน</div>
+                <div class="product-price">65 บาท</div>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="addToCart('อเมริกาโน่ น้ำผึ้ง', 60, 'https://images.unsplash.com/photo-1551033406-611cf9a28f67?auto=format&fit=crop&q=80&w=400')">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?auto=format&fit=crop&q=80&w=400">
+            </div>
+            <div class="product-info">
+                <div class="product-name font-serif italic">อเมริกาโน่ น้ำผึ้ง</div>
+                <div class="product-price">60 บาท</div>
+            </div>
+        </div>
+
+        <div class="product-card" onclick="addToCart('เดอร์ตี้ คอฟฟี่', 75, 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=400')">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=400">
+            </div>
+            <div class="product-info">
+                <div class="product-name font-serif italic">เดอร์ตี้ คอฟฟี่</div>
+                <div class="product-price">75 บาท</div>
+            </div>
+        </div>
+        
+        <div class="product-card" onclick="addToCart('มัทฉะลาเต้', 85, 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=400')">
+            <div class="product-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=400">
+            </div>
+            <div class="product-info">
+                <div class="product-name font-serif italic">มัทฉะลาเต้</div>
+                <div class="product-price">85 บาท</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addToCart(name, price, image) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            let item = cart.find(i => i.name === name);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.push({ name, price, image, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.parent.postMessage('cartUpdated', '*');
+        }
+    </script>
+</body>
+</html>
